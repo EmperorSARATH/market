@@ -1,0 +1,67 @@
+{% extends 'comp_admin/base.html' %}
+{% if d %}
+<script>
+  alert('{{ d }}');
+</script>
+{% endif %}
+{% block content %}
+
+<center><h1>ADD PRODUCTS</h1></center>
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Basic form elements</h4>
+                    <p class="card-description"> Basic form elements </p>
+                    <form class="forms-sample" method="post" action="{% url 'updateproducts_url' %}" enctype="multipart/form-data">
+                        
+                      {% csrf_token %}
+                      <input type="hidden" name="txtxid" value="{{ pid.id }}">
+                      <div class="form-group">
+                        <label for="exampleInputName1">Product Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="txtname" value="{{ pid.name }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Product Price</label>
+                        <input type="number" class="form-control" id="exampleInputEmail3" placeholder="price" name="txtprice" value="{{ pid.price }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4">Quantity</label>
+                        <input type="number" class="form-control" id="exampleInputPassword4" placeholder="quantity" name="quantity" value="{{ pid.quantity }}">
+                      </div>
+                      <div class="form-group">
+
+                        <label for="exampleSelectGender">Product Category</label>
+                        <select class="form-control" id="exampleSelectGender" name="catid" value="{{ pid.catid }}">
+
+                          <option selected disabled>-SELECT-</option>
+                          
+                          {% for x in c %}
+                              {% if x.id == pid.category_id.id %}
+                              <option value="{{ x.id }}" selected> {{ x.category_name }}</option>
+                              {% else %}
+                              <option value="{{ x.id }}" > {{ x.category_name }}</option>
+                              {% endif %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="form-group">
+            
+ 
+                          <label>Image</label>
+                          <img id="blah" alt="{{  pid.img.url}}" width="100" height="100" src="{{pid.img.url}}" />
+                          <input type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" name="img">
+                          </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Product description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="description" >{{ pid.description }}</textarea>
+                      </div>
+                      <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+                    </form>
+                    </form>
+                  </div>
+                </div>
+              </div>
+</div>
+{% endblock %}

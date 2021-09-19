@@ -1,0 +1,63 @@
+{% extends 'comp_admin/base.html' %}
+{% block content %}
+
+<center><h1>View Product Offeres</h1></center>
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"></h4>
+                   <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>Product Name</th>
+                                      <th>Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>offer(%)</th>
+                                <th>Offer Price</th>
+                                <!-- <th>Actions</th> -->
+                            
+                                                    
+                                
+                          
+                              
+
+                            </tr>
+                            <tbody>
+                                {% for x in d %}
+                                <tr>
+                                    <td>{{ x.name }}</td>
+                                       <td><img src="{{ x.img.url }}" alt=""></td>
+                                    <td>{{ x.price }}</td>
+                                    <td>{{ x.quantity }}</td>
+                                    <td>{{ x.offer }}</td>
+                                    <td>{{ x.offer_price }}</td>
+                                    <!-- <td><a href="" class="btn btn-warning">EDIT</a></td> -->
+										
+
+                                </tr>
+
+									{% endfor %}
+                              
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                </div>
+              </div>
+</div>
+
+<script type="text/javascript">
+    function pricefn(val,id,pr)
+    {
+        // alert(pr);
+        document.getElementById(id).value=pr-(val*pr)/100;
+
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<script>
+    function minusfun() {
+        if (document.getElementById('quantity').value>1)
+        {document.getElementById('quantity').value=document.getElementById('quantity').value-1;
+		document.getElementById('qty').value=document.getElementById('qty').value-1;}
+
+    }
+    function plusfun() {
+    	var q = document.getElementById('quantity').value;
+    
+    	var c = document.getElementById('count').value;
+    
+    	if (eval(q)<eval(c)) {
+    				 document.getElementById('quantity').value=eval(document.getElementById('quantity').value)+1;
+    				 document.getElementById('qty').value=eval(document.getElementById('qty').value)+1;
+    	}
+    	else{
+    		alert('Out of Stock ')
+    	}
+    
+    	
+    
+       
+
+    }
+</script>
+
+    <section class="ftco-section">
+    	<div class="container">
+    		<div class="row">
+    	
+
+    			<div class="col-lg-6 mb-5 ftco-animate">
+    				<a href="{{ p.img.url }}" class="image-popup prod-img-bg"><img src="{{ p.img.url }}" class="img-fluid" alt="Colorlib Template"></a>
+    			</div>
+    			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+    				<h3>{{ p.name }}</h3>
+    			<!-- 	<div class="rating d-flex">
+							<p class="text-left mr-4">
+								<a href="#" class="mr-2">5.0</a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+								<a href="#"><span class="ion-ios-star-outline"></span></a>
+							</p>
+							<p class="text-left mr-4">
+								<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+							</p>
+							<p class="text-left">
+								<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+							</p>
+						</div> -->
+						 {% if p.offer == 0 %}
+			    						<p class="price"><span>₹{{ p.price }}</span></p>
+                                        {% else %}
+                                        <strike><p class="price"><span>₹{{ p.price }}</span></p></strike>
+                                        <p class="price"><span>₹{{ p.offer_price }}</span></p>
+                                        {% endif %}
+    			
+    				<p>{{ p.description }}</p>
+    				<!-- <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.
+						</p> -->
+									<form action="{% url 'user_add_cart_url' %}" method="post">
+										{% csrf_token %}
+						<div class="row mt-4">
+						<!-- 	<div class="col-md-6">
+								<div class="form-group d-flex">
+				              <div class="select-wrap">
+			                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+			                  <select name="" id="" class="form-control">
+			                  	<option value="">Small</option>
+			                    <option value="">Medium</option>
+			                    <option value="">Large</option>
+			                    <option value="">Extra Large</option>
+			                  </select>
+			                </div>
+		            </div>
+							</div> -->
+						
+							
+							<div class="w-100"></div>
+							<div class="input-group col-md-6 d-flex mb-3">
+	             	<span class="input-group-btn mr-2">
+	                	<button type="button" class="quantity-left-minus btn" onclick="minusfun()" data-type="minus" data-field="">
+	                   <i class="ion-ios-remove"></i>
+	                	</button>
+	            		</span>
+	             	<input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+	             	<span class="input-group-btn ml-2">
+	                	<button type="button" class="quantity-right-plus btn" onclick="plusfun()" data-type="plus" data-field="">
+	                     <i class="ion-ios-add"></i>
+	                 </button>
+	             	</span>
+	          	</div>
+	          	<div class="w-100"></div>
+	          	<div class="col-md-12">
+	          		<input type="hidden" name="available" id="count" value="{{ p.quantity }}">
+	          		<p style="color: #000;">{{ p.quantity }} piece available</p>
+	          	</div>
+          	</div>
+          	<p><input type="submit" class="btn btn-black py-3 px-5 mr-2" value="Add to Cart">
+          	<input type="hidden" value="{{ p.id }}" name="id"></form>
+          	<!-- 	<form action="{% url 'payment_url' %}">	<input type="hidden" value="{{ p.id }}" name="id"><input type="hidden" name="qty" id="qty"><input type="submit" value="Buy now" class="btn btn-primary py-3 px-5"></form> --></p>
+    			</div>
+    		</div>
+
+
+
+    	</div>
+    </section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'comp_admin/base.html' %}
+{% block content %}
+{% load mathfilters %}
+<center><h1>View Product Offeres</h1></center>
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"></h4>
+                   <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Bill Id</th>
+                                <th>Shipping Address</th>
+                            </tr>
+                            <tbody>
+                                {% for x in o %}
+                                <tr>
+                                    <td>{{ x.product_id.name }}</td>
+                                    <td><img src="{{ x.product_id.img.url }}" alt=""></td>
+                                    {% if x.product_id.offer == 0 %}
+                                    <td>{{ x.product_id.price }}</td>
+                                    {% else %}
+                                    <td>{{ x.product_id.offer_price }}</td>
+                                    {% endif %}
+     
+                                    <td>{{ x.qty }}</td>
+                                    <td>
+                                    {% if x.product_id.offer == 0 %} 
+                                    {{ x.product_id.price|mul:x.qty }}
+                                    {% else %}
+                                    {{ x.product_id.offer_price|mul:x.qty }}
+                                    {% endif %}
+                                    </td>
+                                    <td>10{{ x.bill_id.id }}</td>
+                                    <td>{{ x.bill_id.shippingAddress }}</td>
+                                 <!--    <td><a href="{% url 'companyPlaceOrder_url'  %}" class="btn btn-primary">Place Order</a></td> -->
+                                </tr>
+
+									{% endfor %}
+                              
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                </div>
+              </div>
+</div>
+
+<script type="text/javascript">
+    function pricefn(val,id,pr)
+    {
+        // alert(pr);
+        document.getElementById(id).value=pr-(val*pr)/100;
+
+    }
+</script>
+
+{% endblock %}

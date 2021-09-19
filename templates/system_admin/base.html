@@ -1,0 +1,61 @@
+{% if not request.user %}
+<script>
+  window.location.href="{% url 'index_url' %}";
+</script>
+{% endif %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap 1 Template</title>
+  <!-- Bootstrap -->
+  <link href="{% static '/sys_admin/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/sys_admin/css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static '/sys_admin/css/font-awesome.css' %}" />
+  <link rel="stylesheet" href="{% static '/sys_admin/js/fancybox/jquery.fancybox.css' %}" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{% static '/sys_admin/css/isotope.css' %}" media="screen" />
+  <link rel="stylesheet" href="{% static '/sys_admin/css/style.css' %}">
+  <!-- =======================================================
+    Theme Name: Hidayah
+    Theme URL: https://bootstrapmade.com/hidayah-free-simple-html-template-for-corporate/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+  ======================================================= -->
+</head>
+<body>
+  <header >
+
+    <div class="main-menu">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h1><a class="navbar-brand" href="index.html" data-0="line-height:90px;" data-300="line-height:50px;">			Hidayah
+						</a></h1>
+          </div>
+          <div class="col-md-8">
+            <div class="dropdown">
+              <ul class="nav nav-pills">
+                <li class="active"><a href="{% url 'homeadmin_url' %}">Home</a></li>
+                  <li><a href="{% url 'category_url' %}">Add Category</a></li>
+                <li><a href="{% url 'approve_url' %}">Approve Company</a></li>
+                <li><a href="{% url 'view_comp_url' %}">View Company</a></li>
+                <li><a href="{% url 'view_category_url' %}">View Category</a></li>
+                <li><a href="{% url 'logout_url' %}">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% block content %}
+
+{% endblock %}
+
+</body>

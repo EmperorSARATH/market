@@ -1,0 +1,111 @@
+{% extends 'comp_admin/base.html' %}
+{% block content %}
+  {% if m %}
+<script>
+
+  alert('{{ m }}')
+</script>
+
+  {% endif %}
+<center><h1>Add offers</h1></center>
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"></h4>
+                   <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>Product Name</th>
+                                      <th>Image</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>offer(%)</th>
+                    
+                                
+                          
+                              
+
+                            </tr>
+                            <tbody>
+                                {% for x in d %}
+                                <tr>
+                                    <td>{{ x.name }}</td>
+                                       <td><img src="{{ x.img.url }}" alt=""></td>
+                                    <td>{{ x.price }}</td>
+                                    <td>{{ x.quantity }}</td>
+                                    {% if x.offer == 0 %}
+                                    <td> <a class="btn btn-outline-primary " data-toggle="modal" data-target="#myModal{{ x.id }}">Add Offer</a></td>
+                                    {% else %}
+                                      <td>{{ x.offer }} %</td>
+                           
+                                    {% endif %}
+
+                                </tr>
+
+
+                                 <div class="modal fade" id="myModal{{ x.id }}" role="dialog">
+                            <div class="modal-dialog">
+                            
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body">
+                                  
+                                  <div class="container">
+                                    <form action="{% url 'add_offers_url' %}" method="post">
+                                      {% csrf_token %}
+                                        <input type="hidden" value="{{ x.id }}" name="txtid">
+                                        <div class="form-group">
+                                            <label for="">Price</label>
+                                            <input type="text" class="form-control" readonly="" value="{{ x.price }}">                    
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Offer %</label>
+                                            <input type="text" class="form-control" name="txtoffer" onkeyup="pricefn(this.value,'tp{{ x.id }}','{{ x.price }}')">                    
+                                        </div>     
+                                         <div class="form-group">
+                                            <label for="">Offer Price</label>
+                                            <input type="text" class="form-control" id="tp{{ x.id }}" name="txtoprice" >                    
+                                        </div>      
+                                        <div class="form-group">
+                                            <input type="submit" value="Submit" class="btn btn-info">
+                                        </div>     
+                                        </form>
+                                      
+
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                              
+                            </div>
+                          </div>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                  
+                </div>
+                </div>
+              </div>
+</div>
+
+<script type="text/javascript">
+    function pricefn(val,id,pr)
+    {
+        // alert(pr);
+        document.getElementById(id).value=pr-(val*pr)/100;
+
+    }
+</script>
+
+{% endblock %}

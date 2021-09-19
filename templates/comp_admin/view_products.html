@@ -1,0 +1,50 @@
+{% extends 'comp_admin/base.html' %}
+{% block content %}
+<center><h1>VIEW PRODUCTS</h1></center>
+
+
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title"></h4>
+                    <p class="card-description"> </p>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th>Product Name</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>offer(%)</th>
+								
+								<th>Image</th>
+								<th>Description</th>
+								<th>Actions</th>
+
+							</tr>
+							<tbody>
+								{% for x in d %}
+								<tr>
+									<td>{{ x.name }}</td>
+									<td>{{ x.price }}</td>
+									<td>{{ x.quantity }}</td>
+									<td>{{ x.offer }}</td>
+									
+									<td><img src="{{ x.img.url }}" alt=""></td>
+									<td>{{ x.description }}</td>
+									<td><a href="{% url 'editproducts_url' x.id %}" class="btn btn-warning">EDIT</a>
+										<a href="{% url 'delproducts_url' x.id %}" class="btn btn-danger">DELETE</a></td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+
+
+               </div>
+                </div>
+              </div>
+</div>
+{% endblock %}

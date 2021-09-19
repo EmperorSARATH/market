@@ -1,0 +1,23 @@
+{% extends 'system_admin/base.html' %}
+{% block content %}
+<center><h1>view category</h1></center>
+<div style="margin-left:200px">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        <tbody>
+{% for x in r %}
+
+<tr>
+    <th><h3>{{x.category_name}}</h3></th>
+    <th><a href="{% url 'editcat_url' x.id %}" class="btn btn-warning">EDIT</a>
+        <a href="{% url 'delcat_url' x.id %}" class="btn btn-danger">DELETE</a></th>
+        
+    {% endfor %}
+    </div>
+</tr>
+
+
+{% endblock %}
